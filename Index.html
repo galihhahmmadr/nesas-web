@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - NESAS</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .lightning {
+      font-size: 30px;
+      color: orange;
+      margin: 0 10px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: black;
+      background: #FFA500; /* Oren */
+      width: 100px;
+      height: 100px;
+      border-radius: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      margin-bottom: 1.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .input-icon {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .input-icon i {
+      position: absolute;
+      left: 10px;
+      color: #888;
+    }
+
+    .input-icon input {
+      padding-left: 30px;
+    }
+
+    button {
+      background: #25d366;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    .link {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    a {
+      color: #4b70f2;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <!-- Font Awesome untuk ikon -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo-wrapper">
+      <i class="fas fa-bolt lightning"></i>
+      <div class="logo">NESAS</div>
+      <i class="fas fa-bolt lightning"></i>
+    </div>
+
+    <h2>Log In</h2>
+
+    <form onsubmit="return login()">
+      <div class="input-icon">
+        <i class="fas fa-envelope"></i>
+        <input type="email" id="email" placeholder="Email" required />
+      </div>
+
+      <div class="input-icon">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="password" placeholder="Password" required />
+      </div>
+
+      <div class="link">
+        <a href="#">Forgot password?</a>
+      </div>
+
+      <button type="submit">Log In</button>
+    </form>
+
+    <div class="link">
+      <a href="daftar.html">Create new account</a>
+    </div>
+  </div>
+
+  <script>
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const storedEmail = localStorage.getItem("user_email");
+      const storedPass = localStorage.getItem("user_password");
+
+      if (email === storedEmail && password === storedPass) {
+        localStorage.setItem("login", "true");
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Email atau password salah!");
+      }
+      return false;
+    }
+  </script>
+
+</body>
+</html>

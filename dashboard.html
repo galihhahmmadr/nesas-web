@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard NESAS</title>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+</head>
+<body>
+  <h2>Kontrol Lampu Jarak Jauh</h2>
+  <p>Status Lampu: <span id="status">--</span></p>
+  <button onclick="kirimPerintah('1')">Nyalakan</button>
+  <button onclick="kirimPerintah('0')">Matikan</button>
+  <p><a href="#" onclick="logout()">Logout</a></p>
+
+  <script>
+    if (localStorage.getItem("login") !== "true") {
+      window.location.href = "index.html";
+    }
+
+    const topicKontrol = "galih/iot/lampu";
+    const topicStatus = "galih/iot/status";
+
+    const client = mqtt.connect("wss://broker.hivemq.com:8884/mqtt");
+
+    client.on("connect", function () {
+      console.log("Terhubung ke broker MQTT");
+      client.subscribe(topicStatus);
+    });
+
+    client.on("message", function (topic, message) {
+      if (topic === topicStatus) {
+        document.getElementById("status").innerText = message.toString() === "1" ? "MENYALA" : "MATI";
+      }
+    });
+
+    function kirimPerintah(nilai) {
+      client.publish(topicKontrol, nilai);
+    }
+
+    function logout() {
+      localStorage.setItem("login", "false");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
